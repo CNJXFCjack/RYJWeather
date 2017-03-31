@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16B2657" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="DailyWeather" representedClassName="DailyWeather" syncable="YES" codeGenerationType="class">
+        <attribute name="code_day" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="code_night" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="daily_id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="low" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="precip" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text_day" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text_night" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wind_direction" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wind_direction_degree" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wind_scale" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wind_speed" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Location" representedClassName="Location" syncable="YES" codeGenerationType="class">
+        <attribute name="city_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="country" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="path" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timezone" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timezone_offset" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="DailyWeather" positionX="-63" positionY="-18" width="128" height="240"/>
+        <element name="Location" positionX="-54" positionY="90" width="128" height="135"/>
+    </elements>
+</model>
