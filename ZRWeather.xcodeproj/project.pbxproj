@@ -24,6 +24,12 @@
 		7953F0951E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0941E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.m */; };
 		7953F09D1E8E59A6009ECFD5 /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F09C1E8E59A6009ECFD5 /* HTTPManager.m */; };
 		7953F0A01E8E59C2009ECFD5 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F09F1E8E59C2009ECFD5 /* LocationModel.m */; };
+		7953F0DD1E8F7057009ECFD5 /* NSManagedObject+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0DC1E8F7057009ECFD5 /* NSManagedObject+Helper.m */; };
+		7953F0E31E8F8822009ECFD5 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0E21E8F8822009ECFD5 /* CoreDataManager.m */; };
+		7953F0EA1E8F93D1009ECFD5 /* DailyWeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0E91E8F93D1009ECFD5 /* DailyWeatherModel.m */; };
+		7953F0ED1E8F9B8D009ECFD5 /* NowWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0EC1E8F9B8D009ECFD5 /* NowWeather.m */; };
+		7953F0F01E8F9DC9009ECFD5 /* NowWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */; };
+		7953F0F21E8F9DD8009ECFD5 /* NoWeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */; };
 		B2043DEB7DB68E4CB68BA146 /* Pods_ZRWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2AB8C7DDA3A62D4CC64D1C /* Pods_ZRWeather.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +68,17 @@
 		7953F09C1E8E59A6009ECFD5 /* HTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPManager.m; sourceTree = "<group>"; };
 		7953F09E1E8E59C2009ECFD5 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
 		7953F09F1E8E59C2009ECFD5 /* LocationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationModel.m; sourceTree = "<group>"; };
+		7953F0DB1E8F7057009ECFD5 /* NSManagedObject+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Helper.h"; sourceTree = "<group>"; };
+		7953F0DC1E8F7057009ECFD5 /* NSManagedObject+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Helper.m"; sourceTree = "<group>"; };
+		7953F0E11E8F8822009ECFD5 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		7953F0E21E8F8822009ECFD5 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		7953F0E81E8F93D1009ECFD5 /* DailyWeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DailyWeatherModel.h; sourceTree = "<group>"; };
+		7953F0E91E8F93D1009ECFD5 /* DailyWeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DailyWeatherModel.m; sourceTree = "<group>"; };
+		7953F0EB1E8F9B8D009ECFD5 /* NowWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NowWeather.h; sourceTree = "<group>"; };
+		7953F0EC1E8F9B8D009ECFD5 /* NowWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NowWeather.m; sourceTree = "<group>"; };
+		7953F0EE1E8F9DC9009ECFD5 /* NowWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NowWeatherView.h; sourceTree = "<group>"; };
+		7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NowWeatherView.m; sourceTree = "<group>"; };
+		7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoWeatherView.xib; sourceTree = "<group>"; };
 		80BD8117AF49826AD559807F /* Pods-ZRWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZRWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZRWeather/Pods-ZRWeather.release.xcconfig"; sourceTree = "<group>"; };
 		AE22F8143B77E259883A9314 /* Pods-ZRWeather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZRWeather.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZRWeather/Pods-ZRWeather.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +182,10 @@
 				7953F0881E8E58C1009ECFD5 /* WeatherResponseObj.m */,
 				7953F09E1E8E59C2009ECFD5 /* LocationModel.h */,
 				7953F09F1E8E59C2009ECFD5 /* LocationModel.m */,
+				7953F0E81E8F93D1009ECFD5 /* DailyWeatherModel.h */,
+				7953F0E91E8F93D1009ECFD5 /* DailyWeatherModel.m */,
+				7953F0EB1E8F9B8D009ECFD5 /* NowWeather.h */,
+				7953F0EC1E8F9B8D009ECFD5 /* NowWeather.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -174,6 +195,9 @@
 			children = (
 				7953F0911E8E58D4009ECFD5 /* CollectionViewCell */,
 				7953F0921E8E58D4009ECFD5 /* TableViewCell */,
+				7953F0EE1E8F9DC9009ECFD5 /* NowWeatherView.h */,
+				7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */,
+				7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -194,6 +218,8 @@
 			children = (
 				7953F09B1E8E59A6009ECFD5 /* HTTPManager.h */,
 				7953F09C1E8E59A6009ECFD5 /* HTTPManager.m */,
+				7953F0E11E8F8822009ECFD5 /* CoreDataManager.h */,
+				7953F0E21E8F8822009ECFD5 /* CoreDataManager.m */,
 			);
 			path = ManagerUnit;
 			sourceTree = "<group>";
@@ -212,6 +238,8 @@
 			children = (
 				7953F0931E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.h */,
 				7953F0941E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.m */,
+				7953F0DB1E8F7057009ECFD5 /* NSManagedObject+Helper.h */,
+				7953F0DC1E8F7057009ECFD5 /* NSManagedObject+Helper.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -314,7 +342,7 @@
 				TargetAttributes = {
 					7953F04C1E8E5525009ECFD5 = {
 						CreatedOnToolsVersion = 8.2;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -343,6 +371,7 @@
 			files = (
 				7953F06B1E8E563A009ECFD5 /* Podfile in Resources */,
 				7953F0631E8E5525009ECFD5 /* LaunchScreen.storyboard in Resources */,
+				7953F0F21E8F9DD8009ECFD5 /* NoWeatherView.xib in Resources */,
 				7953F0601E8E5525009ECFD5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -403,15 +432,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				7953F0A01E8E59C2009ECFD5 /* LocationModel.m in Sources */,
+				7953F0ED1E8F9B8D009ECFD5 /* NowWeather.m in Sources */,
 				7953F09D1E8E59A6009ECFD5 /* HTTPManager.m in Sources */,
 				7953F0551E8E5525009ECFD5 /* AppDelegate.m in Sources */,
+				7953F0DD1E8F7057009ECFD5 /* NSManagedObject+Helper.m in Sources */,
 				7953F08A1E8E58C1009ECFD5 /* WeatherResponseObj.m in Sources */,
+				7953F0F01E8F9DC9009ECFD5 /* NowWeatherView.m in Sources */,
 				7953F0901E8E58CB009ECFD5 /* HomeViewModel.m in Sources */,
 				7953F0811E8E587E009ECFD5 /* BaseViewController.m in Sources */,
 				7953F05E1E8E5525009ECFD5 /* ZRWeather.xcdatamodeld in Sources */,
 				7953F0801E8E587E009ECFD5 /* BaseNavViewController.m in Sources */,
 				7953F0521E8E5525009ECFD5 /* main.m in Sources */,
+				7953F0E31E8F8822009ECFD5 /* CoreDataManager.m in Sources */,
 				7953F0841E8E5886009ECFD5 /* HomeViewController.m in Sources */,
+				7953F0EA1E8F93D1009ECFD5 /* DailyWeatherModel.m in Sources */,
 				7953F0891E8E58C1009ECFD5 /* ModelClass.m in Sources */,
 				7953F0781E8E57E4009ECFD5 /* CommonHeader.m in Sources */,
 				7953F0951E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.m in Sources */,
@@ -526,6 +560,7 @@
 			baseConfigurationReference = AE22F8143B77E259883A9314 /* Pods-ZRWeather.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZRWeather/ZRWeather_Pref.pch";
 				INFOPLIST_FILE = ZRWeather/Info.plist;
@@ -540,6 +575,7 @@
 			baseConfigurationReference = 80BD8117AF49826AD559807F /* Pods-ZRWeather.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/ZRWeather/ZRWeather_Pref.pch";
 				INFOPLIST_FILE = ZRWeather/Info.plist;

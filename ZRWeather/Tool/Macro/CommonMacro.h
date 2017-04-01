@@ -26,4 +26,6 @@ alpha:(a)]
 #define kKeyWindow [UIApplication sharedApplication].keyWindow
 #define kAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
+#define kCoreDataManager [CoreDataManager shareManager]
+
 #endif /* CommonMacro_h */

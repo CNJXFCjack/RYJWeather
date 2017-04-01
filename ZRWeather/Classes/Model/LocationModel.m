@@ -7,11 +7,11 @@
 //
 
 #import "LocationModel.h"
-
+#import "Location+CoreDataClass.h"
 @implementation LocationModel
 
 + (NSDictionary *)mj_replacedKeyFromPropertyName{
-    return @{@"cityId":@"id",
+    return @{@"locationId":@"id",
              @"name":@"name",
              @"country":@"country",
              @"path":@"path",

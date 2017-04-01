@@ -14,9 +14,12 @@
 #import "SVProgressHUD.h"
 #import "MJExtension.h"
 #import "MJRefresh.h"
-#import "HTTPManager.h"
 #import "ModelClass.h"
 #import "WeatherResponseObj.h"
+#import "CoreDataManager.h"
+
+//Categories
+#import "NSManagedObject+Helper.h"
 
 extern NSString * const kWEATHER_BASE_URL;
 extern NSString * const kWEATHER_API_KEY;

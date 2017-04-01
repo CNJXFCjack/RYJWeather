@@ -8,7 +8,12 @@
 
 #import "HomeViewController.h"
 #import "HomeViewModel.h"
-//#import "DailyWeather+CoreDataClass.h"
+#import "DailyWeather+CoreDataClass.h"
+#import "Location+CoreDataClass.h"
+#import "LocationModel.h"
+#import "DailyWeatherModel.h"
+#import "NowWeather.h"
+#import "NowWeatherView.h"
 
 @interface HomeViewController ()<UIScrollViewDelegate>
 
@@ -16,6 +21,9 @@
 @property (nonatomic,weak) UIView *containerView;
 
 @property (nonatomic,strong) HomeViewModel *homeViewModel;
+@property (nonatomic,strong) LocationModel *locationModel;
+
+@property (nonatomic,weak) NowWeatherView *nowWeatherView;
 
 @end
 
@@ -29,7 +37,7 @@
     [self.homeViewModel getNowWeatherWithLocation:@"suzhou"];
     [self.homeViewModel getDailyWeatherWithLocation:@"suzhou"];
     
-    
+    NSLog(@"%@",NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
 }
 
 - (void)configSubiews{
@@ -41,12 +49,27 @@
         make.edges.equalTo(self.scrollView);
         make.width.equalTo(self.scrollView);
     }];
+ 
+    [self.nowWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.containerView.mas_top);
+        make.left.equalTo(self.containerView.mas_left);
+        make.width.mas_equalTo(SCREEN.width);
+        make.height.mas_equalTo(120);
+    }];
 }
 
 - (void)bindViewModel{
+    @weakify(self);
     [self.homeViewModel.nowWeatherSub subscribeNext:^(id x) {
+        @strongify(self);
         if ([x isKindOfClass:[NSArray class]]) {
-            NSLog(@"x:%@",x);
+            NSDictionary *param = [[x firstObject] objectForKey:@"location"];
+            LocationModel *locationModel = [LocationModel mj_objectWithKeyValues:param];
+            self.locationModel = locationModel;
+            [kCoreDataManager insertLocation:kAppDelegate.persistentContainer.viewContext LocationModel:locationModel];
+            
+            [self.nowWeatherView configDataWithNowWeather:[NowWeather mj_objectWithKeyValues:[[x firstObject] objectForKey:@"now"]]];
+            
         }else if ([x isKindOfClass:[NSString class]]){
             [SVProgressHUD showErrorWithStatus:x];
         }
@@ -55,8 +78,13 @@
     }];
     
     [self.homeViewModel.dailyWeatherSub subscribeNext:^(id x) {
+        @strongify(self);
         if ([x isKindOfClass:[NSArray class]]) {
-            NSLog(@"x:%@",x);
+            NSArray *results = (NSArray *)x;
+            if (results.count > 0) {
+                results = [DailyWeatherModel mj_objectArrayWithKeyValuesArray:[[results firstObject] objectForKey:@"daily"]];
+                [kCoreDataManager insertDailyWeather:kAppDelegate.persistentContainer.viewContext WithResult:results locId:self.locationModel.locationId locName:self.locationModel.name];
+            }
         }else if ([x isKindOfClass:[NSString class]]){
             [SVProgressHUD showErrorWithStatus:x];
         }
@@ -80,6 +108,7 @@
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc]init];
         scrollView.delegate = self;
+        scrollView.pagingEnabled = YES;
         [self.view addSubview:(_scrollView = scrollView)];
     }
     return _scrollView;
@@ -98,6 +127,14 @@
         _homeViewModel = [[HomeViewModel alloc]init];
     }
     return _homeViewModel;
+}
+
+- (NowWeatherView *)nowWeatherView{
+    if (!_nowWeatherView) {
+        NowWeatherView *nowWeatherView = [[[NSBundle mainBundle] loadNibNamed:@"NoWeatherView" owner:self options:nil] firstObject];
+        [self.containerView addSubview:(_nowWeatherView = nowWeatherView)];
+    }
+    return _nowWeatherView;
 }
 
 

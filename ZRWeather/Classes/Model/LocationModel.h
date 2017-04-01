@@ -8,9 +8,12 @@
 
 #import "ModelClass.h"
 
+@class Location;
+@class DailyWeather;
+
 @interface LocationModel : ModelClass
 
-@property (nonatomic,copy) NSString *cityId;
+@property (nonatomic,copy) NSString *locationId;
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *country;
 @property (nonatomic,copy) NSString *path;

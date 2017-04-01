@@ -22,7 +22,7 @@
 - (void)getNowWeatherWithLocation:(NSString *)location{
     
     [HTTPManager GET:kNOW_WEATHER
-           parameter:@{@"key":kWEATHER_API_KEY,@"location":@"suzhou",@"language":@"zh-Hans",@"unit":@"c"}
+           parameter:@{@"key":kWEATHER_API_KEY,@"location":location,@"language":@"zh-Hans",@"unit":@"c"}
              success:^(NSURLSessionDataTask *task, id responseObject) {
                  WeatherResponseObj *obj = [[WeatherResponseObj alloc]initWithResponse:responseObject];
                  if (obj.isSuccess) {
@@ -41,9 +41,9 @@
              success:^(NSURLSessionDataTask *task, id responseObject) {
                  WeatherResponseObj *obj = [[WeatherResponseObj alloc]initWithResponse:responseObject];
                  if (obj.isSuccess) {
-                     [self.nowWeatherSub sendNext:obj.results];
+                     [self.dailyWeatherSub sendNext:obj.results];
                  }else{
-                     [self.nowWeatherSub sendNext:obj.msg];
+                     [self.dailyWeatherSub sendNext:obj.msg];
                  }
     } fail:^(NSURLSessionDataTask *task, NSError *error) {
         [self.dailyWeatherSub sendError:error];
