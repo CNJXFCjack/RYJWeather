@@ -20,6 +20,8 @@
 
 //Categories
 #import "NSManagedObject+Helper.h"
+#import "UICollectionViewCell+Common.h"
+#import "UITableViewCell+Common.h"
 
 extern NSString * const kWEATHER_BASE_URL;
 extern NSString * const kWEATHER_API_KEY;

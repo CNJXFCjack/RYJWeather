@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79097E8F1E9133610077FC2E /* TableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 79097E8C1E9133610077FC2E /* TableViewDataSource.m */; };
+		79097E901E9133610077FC2E /* TableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79097E8E1E9133610077FC2E /* TableViewDelegate.m */; };
+		79097E931E9133F80077FC2E /* HomeWeatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79097E921E9133F80077FC2E /* HomeWeatherTableViewCell.m */; };
+		79097E981E9135820077FC2E /* UICollectionViewCell+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79097E951E9135820077FC2E /* UICollectionViewCell+Common.m */; };
+		79097E991E9135820077FC2E /* UITableViewCell+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 79097E971E9135820077FC2E /* UITableViewCell+Common.m */; };
 		7953F0521E8E5525009ECFD5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0511E8E5525009ECFD5 /* main.m */; };
 		7953F0551E8E5525009ECFD5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0541E8E5525009ECFD5 /* AppDelegate.m */; };
 		7953F05E1E8E5525009ECFD5 /* ZRWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7953F05C1E8E5525009ECFD5 /* ZRWeather.xcdatamodeld */; };
@@ -35,6 +40,16 @@
 
 /* Begin PBXFileReference section */
 		5B2AB8C7DDA3A62D4CC64D1C /* Pods_ZRWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ZRWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79097E8B1E9133610077FC2E /* TableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewDataSource.h; sourceTree = "<group>"; };
+		79097E8C1E9133610077FC2E /* TableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewDataSource.m; sourceTree = "<group>"; };
+		79097E8D1E9133610077FC2E /* TableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewDelegate.h; sourceTree = "<group>"; };
+		79097E8E1E9133610077FC2E /* TableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewDelegate.m; sourceTree = "<group>"; };
+		79097E911E9133F80077FC2E /* HomeWeatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeWeatherTableViewCell.h; sourceTree = "<group>"; };
+		79097E921E9133F80077FC2E /* HomeWeatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeWeatherTableViewCell.m; sourceTree = "<group>"; };
+		79097E941E9135820077FC2E /* UICollectionViewCell+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionViewCell+Common.h"; sourceTree = "<group>"; };
+		79097E951E9135820077FC2E /* UICollectionViewCell+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionViewCell+Common.m"; sourceTree = "<group>"; };
+		79097E961E9135820077FC2E /* UITableViewCell+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+Common.h"; sourceTree = "<group>"; };
+		79097E971E9135820077FC2E /* UITableViewCell+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+Common.m"; sourceTree = "<group>"; };
 		7953F04D1E8E5525009ECFD5 /* ZRWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZRWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7953F0511E8E5525009ECFD5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7953F0531E8E5525009ECFD5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,6 +117,17 @@
 				80BD8117AF49826AD559807F /* Pods-ZRWeather.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		79097E8A1E9133490077FC2E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				79097E8B1E9133610077FC2E /* TableViewDataSource.h */,
+				79097E8C1E9133610077FC2E /* TableViewDataSource.m */,
+				79097E8D1E9133610077FC2E /* TableViewDelegate.h */,
+				79097E8E1E9133610077FC2E /* TableViewDelegate.m */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		7953F0441E8E5525009ECFD5 = {
@@ -227,6 +253,7 @@
 		7953F0721E8E57CD009ECFD5 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				79097E8A1E9133490077FC2E /* Protocol */,
 				7953F0731E8E57CD009ECFD5 /* Categories */,
 				7953F0741E8E57CD009ECFD5 /* Macro */,
 			);
@@ -240,6 +267,10 @@
 				7953F0941E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.m */,
 				7953F0DB1E8F7057009ECFD5 /* NSManagedObject+Helper.h */,
 				7953F0DC1E8F7057009ECFD5 /* NSManagedObject+Helper.m */,
+				79097E941E9135820077FC2E /* UICollectionViewCell+Common.h */,
+				79097E951E9135820077FC2E /* UICollectionViewCell+Common.m */,
+				79097E961E9135820077FC2E /* UITableViewCell+Common.h */,
+				79097E971E9135820077FC2E /* UITableViewCell+Common.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -296,6 +327,8 @@
 		7953F0921E8E58D4009ECFD5 /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				79097E911E9133F80077FC2E /* HomeWeatherTableViewCell.h */,
+				79097E921E9133F80077FC2E /* HomeWeatherTableViewCell.m */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -442,9 +475,14 @@
 				7953F0811E8E587E009ECFD5 /* BaseViewController.m in Sources */,
 				7953F05E1E8E5525009ECFD5 /* ZRWeather.xcdatamodeld in Sources */,
 				7953F0801E8E587E009ECFD5 /* BaseNavViewController.m in Sources */,
+				79097E931E9133F80077FC2E /* HomeWeatherTableViewCell.m in Sources */,
 				7953F0521E8E5525009ECFD5 /* main.m in Sources */,
 				7953F0E31E8F8822009ECFD5 /* CoreDataManager.m in Sources */,
 				7953F0841E8E5886009ECFD5 /* HomeViewController.m in Sources */,
+				79097E901E9133610077FC2E /* TableViewDelegate.m in Sources */,
+				79097E991E9135820077FC2E /* UITableViewCell+Common.m in Sources */,
+				79097E981E9135820077FC2E /* UICollectionViewCell+Common.m in Sources */,
+				79097E8F1E9133610077FC2E /* TableViewDataSource.m in Sources */,
 				7953F0EA1E8F93D1009ECFD5 /* DailyWeatherModel.m in Sources */,
 				7953F0891E8E58C1009ECFD5 /* ModelClass.m in Sources */,
 				7953F0781E8E57E4009ECFD5 /* CommonHeader.m in Sources */,

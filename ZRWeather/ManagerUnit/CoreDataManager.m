@@ -50,25 +50,19 @@
                 WithResult:(NSArray *)result
                      locId:(NSString *)locId
                    locName:(NSString *)locName{
-    for (DailyWeatherModel *dailyWeatherModel in result) {
-        if ([self exsitDailyWeather:dailyWeatherModel.date context:context]) return;
-        DailyWeather *daillWeather = [DailyWeather insertNewObjectInManagedObjectContext:context];
-        daillWeather.date = dailyWeatherModel.date;
-        daillWeather.code_day = dailyWeatherModel.code_day;
-        daillWeather.code_night = dailyWeatherModel.code_night;
-        daillWeather.high = dailyWeatherModel.high;
-        daillWeather.low = dailyWeatherModel.low;
-        daillWeather.precip = dailyWeatherModel.precip;
-        daillWeather.text_day = dailyWeatherModel.text_day;
-        daillWeather.text_night = dailyWeatherModel.text_night;
-        daillWeather.wind_direction = dailyWeatherModel.wind_direction;
-        daillWeather.wind_direction_degree = dailyWeatherModel.wind_direction_degree;
-        daillWeather.wind_scale = dailyWeatherModel.wind_scale;
-        daillWeather.wind_speed = dailyWeatherModel.wind_speed;
-        daillWeather.location_id = locId;
-        daillWeather.location_name = locName;
-        [kAppDelegate saveContext];
-    }
+    
+    [[[result.rac_sequence filter:^BOOL(DailyWeatherModel *dailyWeatherModel) {
+        
+        return ![self exsitDailyWeather:dailyWeatherModel.date context:context];
+        
+    }] map:^id(DailyWeatherModel *dailyWeatherModel) {
+        
+        DailyWeather *daillWeather = [dailyWeatherModel modelToNSManagedObjectWithLocId:locId LocName:locName];
+        return daillWeather;
+        
+    }] array];
+    
+    [kAppDelegate saveContext];
 }
 
 - (BOOL)exsitDailyWeather:(NSString *)date context:(NSManagedObjectContext *)context{

@@ -14,16 +14,22 @@
 #import "DailyWeatherModel.h"
 #import "NowWeather.h"
 #import "NowWeatherView.h"
+#import "TableViewDelegate.h"
+#import "TableViewDataSource.h"
+#import "HomeWeatherTableViewCell.h"
 
 @interface HomeViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic,weak) UIScrollView *scrollView;
 @property (nonatomic,weak) UIView *containerView;
+@property (nonatomic,weak) NowWeatherView *nowWeatherView;
+@property (nonatomic,weak) UITableView *tableView;
 
 @property (nonatomic,strong) HomeViewModel *homeViewModel;
 @property (nonatomic,strong) LocationModel *locationModel;
 
-@property (nonatomic,weak) NowWeatherView *nowWeatherView;
+@property (nonatomic,strong) TableViewDelegate *tDel;
+@property (nonatomic,strong) TableViewDataSource *tDataSource;
 
 @end
 
@@ -42,7 +48,7 @@
 
 - (void)configSubiews{
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(64, 0, 0, 0));
+        make.edges.equalTo(self.view);
     }];
     
     [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -55,6 +61,7 @@
         make.left.equalTo(self.containerView.mas_left);
         make.width.mas_equalTo(SCREEN.width);
         make.height.mas_equalTo(120);
+        make.bottom.equalTo(self.containerView.mas_bottom).offset(- SCREEN.width + 64 + 120);
     }];
 }
 
@@ -109,6 +116,7 @@
         UIScrollView *scrollView = [[UIScrollView alloc]init];
         scrollView.delegate = self;
         scrollView.pagingEnabled = YES;
+        scrollView.alwaysBounceVertical = YES;
         [self.view addSubview:(_scrollView = scrollView)];
     }
     return _scrollView;
@@ -120,6 +128,18 @@
         [self.scrollView addSubview:(_containerView = containerView)];
     }
     return _containerView;
+}
+
+- (UITableView *)tableView{
+    if (!_tableView) {
+        UITableView *tableView = [[UITableView alloc]init];
+        tableView.dataSource = self.tDataSource;
+        tableView.delegate = self.tDel;
+        [tableView registerClass:[HomeWeatherTableViewCell class] forCellReuseIdentifier:[HomeWeatherTableViewCell identifier]];
+        tableView.scrollEnabled = NO;
+        [self.containerView addSubview:(_tableView = tableView)];
+    }
+    return _tableView;
 }
 
 - (HomeViewModel *)homeViewModel{
@@ -137,5 +157,26 @@
     return _nowWeatherView;
 }
 
+- (TableViewDelegate *)tDel {
+    if (!_tDel) {
+        _tDel = [[TableViewDelegate alloc]initWithRowHeight:^CGFloat(NSIndexPath *indexPath) {
+            return (SCREEN.height - 64 - 120)/3;
+        } HeadHeight:^CGFloat(NSInteger section) {
+            return 0.001f;
+        } FootHeight:^CGFloat(NSInteger section) {
+            return 0.001f;
+        }];
+    }
+    return _tDel;
+}
+
+- (TableViewDataSource *)tDataSource {
+    if (!_tDataSource) {
+        _tDataSource = [[TableViewDataSource alloc]initWithData:@[] cellIdentifier:@"" isGroup:NO ConfigTableViewCellBlock:^(id cell, id item, id indexPath) {
+            
+        }];
+    }
+    return _tDataSource;
+}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "ModelClass.h"
 
+@class DailyWeather;
 @interface DailyWeatherModel : ModelClass
 
 @property (nonatomic,copy) NSString *date;
@@ -22,5 +23,7 @@
 @property (nonatomic,copy) NSString *wind_direction_degree;
 @property (nonatomic,copy) NSString *wind_scale;
 @property (nonatomic,copy) NSString *wind_speed;
+
+- (DailyWeather *)modelToNSManagedObjectWithLocId:(NSString *)locId LocName:(NSString *)locName;
 
 @end
