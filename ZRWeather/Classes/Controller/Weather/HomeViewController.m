@@ -14,22 +14,26 @@
 #import "DailyWeatherModel.h"
 #import "NowWeather.h"
 #import "NowWeatherView.h"
-#import "TableViewDelegate.h"
-#import "TableViewDataSource.h"
 #import "HomeWeatherTableViewCell.h"
+#import "WeatherHistoryViewController.h"
 
-@interface HomeViewController ()<UIScrollViewDelegate>
+@interface HomeViewController ()<UIScrollViewDelegate>{
+    CGFloat contentOffSetX;
+}
 
 @property (nonatomic,weak) UIScrollView *scrollView;
 @property (nonatomic,weak) UIView *containerView;
 @property (nonatomic,weak) NowWeatherView *nowWeatherView;
 @property (nonatomic,weak) UITableView *tableView;
+@property (nonatomic,weak) UILabel *reminderLB;
 
 @property (nonatomic,strong) HomeViewModel *homeViewModel;
 @property (nonatomic,strong) LocationModel *locationModel;
 
 @property (nonatomic,strong) TableViewDelegate *tDel;
 @property (nonatomic,strong) TableViewDataSource *tDataSource;
+
+@property (nonatomic,strong) NSMutableArray *dailyWeatherArr;
 
 @end
 
@@ -61,7 +65,19 @@
         make.left.equalTo(self.containerView.mas_left);
         make.width.mas_equalTo(SCREEN.width);
         make.height.mas_equalTo(120);
-        make.bottom.equalTo(self.containerView.mas_bottom).offset(- SCREEN.width + 64 + 120);
+        make.bottom.equalTo(self.containerView.mas_bottom).offset(- SCREEN.height + 64 + 120);
+    }];
+    
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.containerView);
+        make.top.equalTo(self.nowWeatherView.mas_bottom).offset(10);
+        make.bottom.equalTo(self.containerView.mas_bottom).offset(-40);
+    }];
+    
+    [self.reminderLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.containerView);
+        make.top.equalTo(self.tableView.mas_bottom).offset(5);
+        make.bottom.equalTo(self.containerView.mas_bottom).offset(-5);
     }];
 }
 
@@ -89,15 +105,31 @@
         if ([x isKindOfClass:[NSArray class]]) {
             NSArray *results = (NSArray *)x;
             if (results.count > 0) {
-                results = [DailyWeatherModel mj_objectArrayWithKeyValuesArray:[[results firstObject] objectForKey:@"daily"]];
-                [kCoreDataManager insertDailyWeather:kAppDelegate.persistentContainer.viewContext WithResult:results locId:self.locationModel.locationId locName:self.locationModel.name];
+                [self.dailyWeatherArr addObjectsFromArray: [DailyWeatherModel mj_objectArrayWithKeyValuesArray:[[results firstObject] objectForKey:@"daily"]]];
+                [kCoreDataManager insertDailyWeather:kAppDelegate.persistentContainer.viewContext WithResult:[self.dailyWeatherArr copy] locId:self.locationModel.locationId locName:self.locationModel.name];
             }
+            [self.tableView reloadData];
         }else if ([x isKindOfClass:[NSString class]]){
             [SVProgressHUD showErrorWithStatus:x];
         }
     } error:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
+    //监听拖拽的长度
+    [[self rac_signalForSelector:@selector(scrollViewDidScroll:) fromProtocol:@protocol(UIScrollViewDelegate)] subscribeNext:^(RACTuple * x) {
+        @strongify(self);
+        self -> contentOffSetX = ((UIScrollView *)x.first).mj_offsetX;
+    }];
+    //当结束拖拽的时候  判断 拖拽的contentOffSetX
+    [[self rac_signalForSelector:@selector(scrollViewDidEndDragging:willDecelerate:) fromProtocol:@protocol(UIScrollViewDelegate)] subscribeNext:^(RACTuple * xb) {
+        if (contentOffSetX > 60) {
+            @strongify(self);
+            WeatherHistoryViewController *weatherHistoryVC = [[WeatherHistoryViewController alloc] init];
+            [self.navigationController pushViewController:weatherHistoryVC animated:YES];
+        }
+    }];
+    
+    self.scrollView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -114,9 +146,8 @@
 - (UIScrollView *)scrollView{
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc]init];
-        scrollView.delegate = self;
         scrollView.pagingEnabled = YES;
-        scrollView.alwaysBounceVertical = YES;
+        scrollView.alwaysBounceHorizontal = YES;
         [self.view addSubview:(_scrollView = scrollView)];
     }
     return _scrollView;
@@ -142,6 +173,15 @@
     return _tableView;
 }
 
+- (UILabel *)reminderLB {
+    if (!_reminderLB) {
+        UILabel *reminderLB = [[UILabel alloc]init];
+        reminderLB.text = @"Slider left to load history ~ ";
+        [self.containerView addSubview:(_reminderLB = reminderLB)];
+    }
+    return _reminderLB;
+}
+
 - (HomeViewModel *)homeViewModel{
     if (!_homeViewModel) {
         _homeViewModel = [[HomeViewModel alloc]init];
@@ -160,7 +200,7 @@
 - (TableViewDelegate *)tDel {
     if (!_tDel) {
         _tDel = [[TableViewDelegate alloc]initWithRowHeight:^CGFloat(NSIndexPath *indexPath) {
-            return (SCREEN.height - 64 - 120)/3;
+            return 140;
         } HeadHeight:^CGFloat(NSInteger section) {
             return 0.001f;
         } FootHeight:^CGFloat(NSInteger section) {
@@ -172,11 +212,19 @@
 
 - (TableViewDataSource *)tDataSource {
     if (!_tDataSource) {
-        _tDataSource = [[TableViewDataSource alloc]initWithData:@[] cellIdentifier:@"" isGroup:NO ConfigTableViewCellBlock:^(id cell, id item, id indexPath) {
-            
+        _tDataSource = [[TableViewDataSource alloc]initWithData:self.dailyWeatherArr cellIdentifier:[HomeWeatherTableViewCell identifier] isGroup:NO ConfigTableViewCellBlock:^(HomeWeatherTableViewCell *  cell, DailyWeatherModel * item, NSIndexPath * indexPath) {
+            [cell configUIWithModel:item];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
         }];
     }
     return _tDataSource;
+}
+
+- (NSMutableArray *)dailyWeatherArr {
+    if (!_dailyWeatherArr) {
+        _dailyWeatherArr = [NSMutableArray array];
+    }
+    return _dailyWeatherArr;
 }
 
 @end

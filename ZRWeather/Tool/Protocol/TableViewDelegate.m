@@ -63,4 +63,10 @@
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (self.didScrollHandle) {
+        self.didScrollHandle(scrollView);
+    }
+}
+
 @end

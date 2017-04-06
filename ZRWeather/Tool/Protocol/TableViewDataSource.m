@@ -48,7 +48,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier forIndexPath:indexPath];
-    NSLog(@"thread:%@",[NSThread currentThread]);
     id item = [self itemAtIndexPath:indexPath];
     self.configBlock(cell, item ,indexPath);
     return cell;

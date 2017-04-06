@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class DailyWeatherModel;
+
 @interface HomeWeatherTableViewCell : UITableViewCell
+
+- (void)configUIWithModel:(DailyWeatherModel *)dailyWeatherModel;
 
 @end
