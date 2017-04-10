@@ -27,5 +27,6 @@ alpha:(a)]
 #define kAppDelegate ((AppDelegate *)[UIApplication sharedApplication].delegate)
 
 #define kCoreDataManager [CoreDataManager shareManager]
+#define kDateFormatManager [DateFormatManager shareManager]
 
 #endif /* CommonMacro_h */

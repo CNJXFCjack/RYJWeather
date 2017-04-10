@@ -35,7 +35,10 @@
 		7953F0ED1E8F9B8D009ECFD5 /* NowWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0EC1E8F9B8D009ECFD5 /* NowWeather.m */; };
 		7953F0F01E8F9DC9009ECFD5 /* NowWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */; };
 		7953F0F21E8F9DD8009ECFD5 /* NoWeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */; };
+		796882C41E9BD0EA00BBA965 /* UIView+Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 796882C31E9BD0EA00BBA965 /* UIView+Line.m */; };
+		796882C71E9BD15100BBA965 /* WeatherHistoryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 796882C61E9BD15100BBA965 /* WeatherHistoryViewModel.m */; };
 		798471B11E99DEF800AC5E75 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 798471B01E99DEF800AC5E75 /* NSString+Common.m */; };
+		798471B51E9B867000AC5E75 /* DateFormatManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 798471B41E9B867000AC5E75 /* DateFormatManager.m */; };
 		79AA542C1E95EB0F00695240 /* WeatherHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA542B1E95EB0F00695240 /* WeatherHistoryViewController.m */; };
 		79AA545B1E96836500695240 /* WeatherHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA545A1E96836500695240 /* WeatherHistoryTableViewCell.m */; };
 		B2043DEB7DB68E4CB68BA146 /* Pods_ZRWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2AB8C7DDA3A62D4CC64D1C /* Pods_ZRWeather.framework */; };
@@ -97,8 +100,14 @@
 		7953F0EE1E8F9DC9009ECFD5 /* NowWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NowWeatherView.h; sourceTree = "<group>"; };
 		7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NowWeatherView.m; sourceTree = "<group>"; };
 		7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoWeatherView.xib; sourceTree = "<group>"; };
+		796882C21E9BD0EA00BBA965 /* UIView+Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Line.h"; sourceTree = "<group>"; };
+		796882C31E9BD0EA00BBA965 /* UIView+Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Line.m"; sourceTree = "<group>"; };
+		796882C51E9BD15100BBA965 /* WeatherHistoryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherHistoryViewModel.h; sourceTree = "<group>"; };
+		796882C61E9BD15100BBA965 /* WeatherHistoryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherHistoryViewModel.m; sourceTree = "<group>"; };
 		798471AF1E99DEF800AC5E75 /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
 		798471B01E99DEF800AC5E75 /* NSString+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Common.m"; sourceTree = "<group>"; };
+		798471B31E9B867000AC5E75 /* DateFormatManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFormatManager.h; sourceTree = "<group>"; };
+		798471B41E9B867000AC5E75 /* DateFormatManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFormatManager.m; sourceTree = "<group>"; };
 		79AA542A1E95EB0F00695240 /* WeatherHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherHistoryViewController.h; sourceTree = "<group>"; };
 		79AA542B1E95EB0F00695240 /* WeatherHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherHistoryViewController.m; sourceTree = "<group>"; };
 		79AA54591E96836500695240 /* WeatherHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherHistoryTableViewCell.h; sourceTree = "<group>"; };
@@ -190,6 +199,7 @@
 		7953F06C1E8E57CD009ECFD5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				798471B21E9B804F00AC5E75 /* Animation */,
 				7953F06D1E8E57CD009ECFD5 /* Controller */,
 				7953F06E1E8E57CD009ECFD5 /* Model */,
 				7953F06F1E8E57CD009ECFD5 /* View */,
@@ -244,6 +254,8 @@
 				7953F08C1E8E58CB009ECFD5 /* BaseViewModel.m */,
 				7953F08D1E8E58CB009ECFD5 /* HomeViewModel.h */,
 				7953F08E1E8E58CB009ECFD5 /* HomeViewModel.m */,
+				796882C51E9BD15100BBA965 /* WeatherHistoryViewModel.h */,
+				796882C61E9BD15100BBA965 /* WeatherHistoryViewModel.m */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -255,6 +267,8 @@
 				7953F09C1E8E59A6009ECFD5 /* HTTPManager.m */,
 				7953F0E11E8F8822009ECFD5 /* CoreDataManager.h */,
 				7953F0E21E8F8822009ECFD5 /* CoreDataManager.m */,
+				798471B31E9B867000AC5E75 /* DateFormatManager.h */,
+				798471B41E9B867000AC5E75 /* DateFormatManager.m */,
 			);
 			path = ManagerUnit;
 			sourceTree = "<group>";
@@ -282,6 +296,8 @@
 				79097E971E9135820077FC2E /* UITableViewCell+Common.m */,
 				798471AF1E99DEF800AC5E75 /* NSString+Common.h */,
 				798471B01E99DEF800AC5E75 /* NSString+Common.m */,
+				796882C21E9BD0EA00BBA965 /* UIView+Line.h */,
+				796882C31E9BD0EA00BBA965 /* UIView+Line.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -346,6 +362,13 @@
 				79AA545A1E96836500695240 /* WeatherHistoryTableViewCell.m */,
 			);
 			path = TableViewCell;
+			sourceTree = "<group>";
+		};
+		798471B21E9B804F00AC5E75 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Animation;
 			sourceTree = "<group>";
 		};
 		F98A16EED38509C155C32F1B /* Frameworks */ = {
@@ -483,7 +506,9 @@
 				7953F0ED1E8F9B8D009ECFD5 /* NowWeather.m in Sources */,
 				7953F09D1E8E59A6009ECFD5 /* HTTPManager.m in Sources */,
 				7953F0551E8E5525009ECFD5 /* AppDelegate.m in Sources */,
+				798471B51E9B867000AC5E75 /* DateFormatManager.m in Sources */,
 				7953F0DD1E8F7057009ECFD5 /* NSManagedObject+Helper.m in Sources */,
+				796882C41E9BD0EA00BBA965 /* UIView+Line.m in Sources */,
 				7953F08A1E8E58C1009ECFD5 /* WeatherResponseObj.m in Sources */,
 				7953F0F01E8F9DC9009ECFD5 /* NowWeatherView.m in Sources */,
 				7953F0901E8E58CB009ECFD5 /* HomeViewModel.m in Sources */,
@@ -495,6 +520,7 @@
 				7953F0521E8E5525009ECFD5 /* main.m in Sources */,
 				7953F0E31E8F8822009ECFD5 /* CoreDataManager.m in Sources */,
 				7953F0841E8E5886009ECFD5 /* HomeViewController.m in Sources */,
+				796882C71E9BD15100BBA965 /* WeatherHistoryViewModel.m in Sources */,
 				79097E901E9133610077FC2E /* TableViewDelegate.m in Sources */,
 				79097E991E9135820077FC2E /* UITableViewCell+Common.m in Sources */,
 				79097E981E9135820077FC2E /* UICollectionViewCell+Common.m in Sources */,

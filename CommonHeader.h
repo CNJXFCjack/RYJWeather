@@ -17,12 +17,14 @@
 #import "ModelClass.h"
 #import "WeatherResponseObj.h"
 #import "CoreDataManager.h"
+#import "DateFormatManager.h"
 
 //Categories
 #import "NSManagedObject+Helper.h"
 #import "UICollectionViewCell+Common.h"
 #import "UITableViewCell+Common.h"
 #import "NSString+Common.h"
+#import "UIView+Line.h"
 
 extern NSString * const kWEATHER_BASE_URL;
 extern NSString * const kWEATHER_API_KEY;

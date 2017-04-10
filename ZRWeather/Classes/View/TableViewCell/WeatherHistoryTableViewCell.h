@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class DailyWeatherModel;
+@class DailyWeather;
 @interface WeatherHistoryTableViewCell : UITableViewCell
 
-- (void)configUIWithModel:(DailyWeatherModel *)dailyWeather;
+- (void)configUIWithModel:(DailyWeather *)dailyWeather;
 
 @end

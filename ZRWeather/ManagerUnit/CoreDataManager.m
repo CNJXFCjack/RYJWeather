@@ -35,9 +35,8 @@
 - (BOOL)exsitLocation:(NSString *)locationId context:(NSManagedObjectContext *)context{
     NSFetchRequest *request = [Location fetchRequest];
     NSPredicate *predicatie = [NSPredicate predicateWithFormat:@"location_id == [c]%@",locationId];
-    [request setPredicate:predicatie];
-    NSArray *arr = [context executeFetchRequest:request error:nil];
-    return arr.count > 0 ? YES : NO;
+    request.predicate = predicatie;
+    return [context countForFetchRequest:request error:nil] > 0 ? YES : NO;
 }
 
 #pragma mark --- DailyWeather
@@ -63,9 +62,34 @@
 - (BOOL)exsitDailyWeather:(NSString *)date context:(NSManagedObjectContext *)context{
     NSFetchRequest *request = [DailyWeather fetchRequest];
     NSPredicate *predicatie = [NSPredicate predicateWithFormat:@"date == %@",date];
-    [request setPredicate:predicatie];
-    NSArray *arr = [context executeFetchRequest:request error:nil];
-    return arr.count > 0 ? YES : NO;
+    request.predicate = predicatie;
+    return [context countForFetchRequest:request error:nil] > 0 ? YES : NO;
+}
+
+- (void)fetchDailyWeather:(NSManagedObjectContext *)context
+                         block:(RequestResultHandle)block{
+    NSFetchRequest *request = [DailyWeather fetchRequest];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:YES]];
+    NSError *error;
+    NSArray *list = [context executeFetchRequest:request error:&error];
+    if (!error) {
+        if (block) block(YES,list,nil);
+    }else {
+        if (block) block(NO,nil,error);
+    }
+}
+
+- (void)deleteDailyWeather:(DailyWeather *)dailyWeather
+                   context:(NSManagedObjectContext *)context
+                     block:(RequestResultHandle)block {
+    NSError *error;
+    [context deleteObject:dailyWeather];
+    [context save:&error];
+    if (!error) {
+        if (block) block(YES,nil,nil);
+    }else {
+        if (block) block(NO,nil,error);
+    }
 }
 
 @end

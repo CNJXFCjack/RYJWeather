@@ -231,7 +231,7 @@
 - (UIView *)borderView {
     if (!_borderView) {
         UIView *borderView = [UIView new];
-        borderView.backgroundColor = DEF_UIColorFromRGB(0x808080);
+        borderView.backgroundColor = DEF_UIColorFromRGB(0xE5E5E5);
         [self.contentView addSubview:(_borderView = borderView)];
     }
     return _borderView;

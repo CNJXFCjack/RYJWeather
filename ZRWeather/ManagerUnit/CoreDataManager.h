@@ -6,15 +6,21 @@
 //  Copyright © 2017年 heinqi. All rights reserved.
 //
 
+typedef void(^RequestResultHandle)(BOOL,id,NSError *);
+
 #import <Foundation/Foundation.h>
 #import "LocationModel.h"
+
+@class DailyWeather;
+
 @interface CoreDataManager : NSObject
 
 + (instancetype)shareManager;
 
 #pragma mark --- Location
 
-- (void)insertLocation:(NSManagedObjectContext *)context LocationModel:(LocationModel *)locationModel;
+- (void)insertLocation:(NSManagedObjectContext *)context
+         LocationModel:(LocationModel *)locationModel;
 
 #pragma mark --- DailyWeather
 
@@ -22,5 +28,13 @@
                 WithResult:(NSArray *)result
                 locId:(NSString *)locId
               locName:(NSString *)locName;
+//拉取历史列表
+- (void)fetchDailyWeather:(NSManagedObjectContext *)context
+                         block:(RequestResultHandle)block;
+
+//删除
+- (void)deleteDailyWeather:(DailyWeather *)dailyWeather
+                   context:(NSManagedObjectContext *)context
+                     block:(RequestResultHandle)block;
 
 @end

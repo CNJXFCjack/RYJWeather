@@ -8,6 +8,9 @@
 
 #import "WeatherHistoryViewController.h"
 #import "WeatherHistoryTableViewCell.h"
+#import "DailyWeather+CoreDataClass.h"
+#import "WeatherHistoryViewModel.h"
+
 @interface WeatherHistoryViewController ()
 
 @property (nonatomic,weak) UITableView *tableView;
@@ -16,6 +19,7 @@
 @property (nonatomic,strong) TableViewDataSource *tDataSource;
 
 @property (nonatomic,strong) NSMutableArray *dailyWeatherArr;
+@property (nonatomic,strong) WeatherHistoryViewModel *weatherHistoryViewModel;
 
 @end
 
@@ -25,6 +29,30 @@
     [super viewDidLoad];
     self.navigationItem.title = @"Weather History";
     self.view.backgroundColor = [UIColor whiteColor];
+    //拉取历史数据
+    [self.weatherHistoryViewModel historyList];
+}
+
+- (void)bindViewModel {
+    [self.weatherHistoryViewModel.historyListSub subscribeNext:^(id x) {
+        
+    } error:^(NSError *error) {
+        
+    }];
+    //执行删除操作
+    [self.weatherHistoryViewModel.deleteHistory.executionSignals.switchToLatest subscribeNext:^(id x) {
+        
+    } error:^(NSError *error) {
+        
+    }];
+}
+
+- (void)configSubiews {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    self.tableView.tableFooterView = [UIView borderLineWithFrame:CGRectMake(0, 0, SCREEN.width, 0.5) withcolor:DEF_UIColorFromRGB(0xe5e5e5)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,6 +68,7 @@
         tableView.delegate = self.tDel;
         tableView.dataSource = self.tDataSource;
         [tableView registerClass:[WeatherHistoryTableViewCell class] forCellReuseIdentifier:[WeatherHistoryTableViewCell identifier]];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview:(_tableView = tableView)];
     }
     return _tableView;
@@ -48,7 +77,7 @@
 - (TableViewDelegate *)tDel {
     if (!_tDel) {
         _tDel = [[TableViewDelegate alloc] initWithRowHeight:^CGFloat(NSIndexPath *indexPath) {
-            return 100.0f;
+            return 90.0f;
         } HeadHeight:^CGFloat(NSInteger section) {
             return 0.001f;
         } FootHeight:^CGFloat(NSInteger section) {
@@ -60,11 +89,26 @@
 
 - (TableViewDataSource *)tDataSource {
     if (!_tDataSource) {
-        _tDataSource = [[TableViewDataSource alloc] initWithData:self.dailyWeatherArr cellIdentifier:[WeatherHistoryTableViewCell identifier] isGroup:NO ConfigTableViewCellBlock:^(WeatherHistoryTableViewCell * cell, DailyWeatherModel * item, NSIndexPath * indexPath) {
+        _tDataSource = [[TableViewDataSource alloc] initWithData:self.dailyWeatherArr cellIdentifier:[WeatherHistoryTableViewCell identifier] isGroup:NO ConfigTableViewCellBlock:^(WeatherHistoryTableViewCell * cell, DailyWeather * item, NSIndexPath * indexPath) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell configUIWithModel:item];
         }];
     }
     return _tDataSource;
+}
+
+- (NSMutableArray *)dailyWeatherArr {
+    if (!_dailyWeatherArr) {
+        _dailyWeatherArr = [NSMutableArray arrayWithArray:[kCoreDataManager fetchDailyWeather:kAppDelegate.persistentContainer.viewContext]];
+    }
+    return _dailyWeatherArr;
+}
+
+- (WeatherHistoryViewModel *)weatherHistoryViewModel {
+    if (!_weatherHistoryViewModel) {
+        _weatherHistoryViewModel = [[WeatherHistoryViewModel alloc] init];
+    }
+    return _weatherHistoryViewModel;
 }
 
 @end
