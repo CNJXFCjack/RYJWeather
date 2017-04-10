@@ -35,6 +35,7 @@
 		7953F0ED1E8F9B8D009ECFD5 /* NowWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0EC1E8F9B8D009ECFD5 /* NowWeather.m */; };
 		7953F0F01E8F9DC9009ECFD5 /* NowWeatherView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */; };
 		7953F0F21E8F9DD8009ECFD5 /* NoWeatherView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */; };
+		798471B11E99DEF800AC5E75 /* NSString+Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 798471B01E99DEF800AC5E75 /* NSString+Common.m */; };
 		79AA542C1E95EB0F00695240 /* WeatherHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA542B1E95EB0F00695240 /* WeatherHistoryViewController.m */; };
 		79AA545B1E96836500695240 /* WeatherHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AA545A1E96836500695240 /* WeatherHistoryTableViewCell.m */; };
 		B2043DEB7DB68E4CB68BA146 /* Pods_ZRWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2AB8C7DDA3A62D4CC64D1C /* Pods_ZRWeather.framework */; };
@@ -96,6 +97,8 @@
 		7953F0EE1E8F9DC9009ECFD5 /* NowWeatherView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NowWeatherView.h; sourceTree = "<group>"; };
 		7953F0EF1E8F9DC9009ECFD5 /* NowWeatherView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NowWeatherView.m; sourceTree = "<group>"; };
 		7953F0F11E8F9DD8009ECFD5 /* NoWeatherView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NoWeatherView.xib; sourceTree = "<group>"; };
+		798471AF1E99DEF800AC5E75 /* NSString+Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Common.h"; sourceTree = "<group>"; };
+		798471B01E99DEF800AC5E75 /* NSString+Common.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Common.m"; sourceTree = "<group>"; };
 		79AA542A1E95EB0F00695240 /* WeatherHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherHistoryViewController.h; sourceTree = "<group>"; };
 		79AA542B1E95EB0F00695240 /* WeatherHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherHistoryViewController.m; sourceTree = "<group>"; };
 		79AA54591E96836500695240 /* WeatherHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherHistoryTableViewCell.h; sourceTree = "<group>"; };
@@ -277,6 +280,8 @@
 				79097E951E9135820077FC2E /* UICollectionViewCell+Common.m */,
 				79097E961E9135820077FC2E /* UITableViewCell+Common.h */,
 				79097E971E9135820077FC2E /* UITableViewCell+Common.m */,
+				798471AF1E99DEF800AC5E75 /* NSString+Common.h */,
+				798471B01E99DEF800AC5E75 /* NSString+Common.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -499,6 +504,7 @@
 				7953F0781E8E57E4009ECFD5 /* CommonHeader.m in Sources */,
 				79AA545B1E96836500695240 /* WeatherHistoryTableViewCell.m in Sources */,
 				7953F0951E8E58E0009ECFD5 /* AFHTTPSessionManager+Singleton.m in Sources */,
+				798471B11E99DEF800AC5E75 /* NSString+Common.m in Sources */,
 				7953F08F1E8E58CB009ECFD5 /* BaseViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

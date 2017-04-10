@@ -168,6 +168,7 @@
         tableView.delegate = self.tDel;
         [tableView registerClass:[HomeWeatherTableViewCell class] forCellReuseIdentifier:[HomeWeatherTableViewCell identifier]];
         tableView.scrollEnabled = NO;
+        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.containerView addSubview:(_tableView = tableView)];
     }
     return _tableView;

@@ -9,7 +9,6 @@
 #import "ModelClass.h"
 
 @class Location;
-@class DailyWeather;
 
 @interface LocationModel : ModelClass
 
@@ -19,5 +18,7 @@
 @property (nonatomic,copy) NSString *path;
 @property (nonatomic,copy) NSString *timezone;
 @property (nonatomic,copy) NSString *timezone_offset;
+
+- (Location *)modelToNSManagedObject;
 
 @end

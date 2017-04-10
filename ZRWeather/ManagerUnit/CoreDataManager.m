@@ -27,13 +27,8 @@
 - (void)insertLocation:(NSManagedObjectContext *)context LocationModel:(LocationModel *)locationModel{
     if ([self exsitLocation:locationModel.locationId context:context]) return;
     
-    Location *location = [Location insertNewObjectInManagedObjectContext:context];
-    location.location_id = locationModel.locationId;
-    location.name = locationModel.name;
-    location.country = locationModel.country;
-    location.path = locationModel.path;
-    location.timezone = locationModel.timezone;
-    location.timezone_offset = locationModel.timezone_offset;
+    [locationModel modelToNSManagedObject];
+    
     [kAppDelegate saveContext];
 }
 

@@ -19,4 +19,16 @@
              @"timezone_offset":@"timezone_offset"};
 }
 
+- (Location *)modelToNSManagedObject {
+    Location *location = [Location insertNewObjectInManagedObjectContext:kAppDelegate.persistentContainer.viewContext];
+    location.location_id = self.locationId;
+    location.name = self.name;
+    location.country = self.country;
+    location.path = self.path;
+    location.timezone = self.timezone;
+    location.timezone_offset = self.timezone_offset;
+    
+    return location;
+}
+
 @end

@@ -15,7 +15,7 @@
 }
 
 - (void)configDataWithNowWeather:(NowWeather *)nowWeather{
-    self.nowImg.image = [UIImage imageNamed:nowWeather.code];
+    self.nowImg.image = [UIImage imageNamed:[nowWeather.code transformImgName]];
     self.temperature.text = nowWeather.temperature;
     self.weather.text = nowWeather.text;
 }

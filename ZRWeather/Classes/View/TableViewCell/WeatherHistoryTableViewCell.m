@@ -9,7 +9,13 @@
 #import "WeatherHistoryTableViewCell.h"
 #import "DailyWeatherModel.h"
 
+
+
 @implementation WeatherHistoryTableViewCell
+
+- (void)configUIWithModel:(DailyWeatherModel *)dailyWeather {
+    
+}
 
 - (void)awakeFromNib {
     [super awakeFromNib];

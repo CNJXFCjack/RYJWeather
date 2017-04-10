@@ -24,6 +24,8 @@
 @property (nonatomic,weak) UILabel *dayLB;
 @property (nonatomic,weak) UILabel *nightLB;
 
+@property (nonatomic,weak) UIView *borderView;
+
 @end
 
 @implementation HomeWeatherTableViewCell
@@ -37,8 +39,8 @@
 
 - (void)configUIWithModel:(DailyWeatherModel *)dailyWeatherModel{
     self.dateLB.text = [NSString stringWithFormat:@"Date :%@",dailyWeatherModel.date];
-    self.dayWeatherImg.image = [UIImage imageNamed:dailyWeatherModel.code_day];
-    self.nightWeatherImg.image = [UIImage imageNamed:dailyWeatherModel.code_night];
+    self.dayWeatherImg.image = [UIImage imageNamed:[dailyWeatherModel.code_day transformImgName]];
+    self.nightWeatherImg.image = [UIImage imageNamed:[dailyWeatherModel.code_night transformImgName]];
     self.temperatureLB.text = [NSString stringWithFormat:@"%@℃ ~ %@℃",dailyWeatherModel.high,dailyWeatherModel.low];
     self.dayWeatherLB.text = dailyWeatherModel.text_day;
     self.nightWeatherLB.text = dailyWeatherModel.text_night;
@@ -56,7 +58,7 @@
     }];
     
     [self.dayLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(10);
+        make.left.equalTo(self.contentView).offset(24);
         make.top.equalTo(self.dateLB.mas_bottom).offset(25);
     }];
     
@@ -72,8 +74,8 @@
     }];
     
     [self.nightLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.contentView).offset(10);
-        make.top.equalTo(self.dayLB.mas_bottom).offset(10);
+        make.left.equalTo(self.contentView).offset(24);
+        make.top.equalTo(self.dayLB.mas_bottom).offset(25);
     }];
     
     [self.nightWeatherImg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,6 +112,11 @@
     [self.windSpeedLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.windDirectionLB);
         make.top.equalTo(self.windScaleLB.mas_bottom).offset(10);
+    }];
+    
+    [self.borderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self.contentView);
+        make.height.mas_equalTo(0.5);
     }];
 }
 
@@ -219,6 +226,15 @@
         [self.contentView addSubview:(_nightLB = nightLB)];
     }
     return _nightLB;
+}
+
+- (UIView *)borderView {
+    if (!_borderView) {
+        UIView *borderView = [UIView new];
+        borderView.backgroundColor = DEF_UIColorFromRGB(0x808080);
+        [self.contentView addSubview:(_borderView = borderView)];
+    }
+    return _borderView;
 }
 
 - (void)awakeFromNib {

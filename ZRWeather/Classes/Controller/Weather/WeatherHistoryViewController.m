@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"历史";
+    self.navigationItem.title = @"Weather History";
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
