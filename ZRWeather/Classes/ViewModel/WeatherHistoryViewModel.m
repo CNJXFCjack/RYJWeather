@@ -39,8 +39,7 @@
             if (success) {
                 [subscriber sendNext:@YES];
             }else {
-                [subscriber sendNext:@NO];
-                [SVProgressHUD showErrorWithStatus:error.localizedDescription];
+                [subscriber sendError:error];
             }
         }];
         

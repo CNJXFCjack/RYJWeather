@@ -21,6 +21,8 @@
 @property (nonatomic,strong) NSMutableArray *dailyWeatherArr;
 @property (nonatomic,strong) WeatherHistoryViewModel *weatherHistoryViewModel;
 
+@property (nonatomic,strong) NSIndexPath *editIndexPath;
+
 @end
 
 @implementation WeatherHistoryViewController
@@ -34,16 +36,23 @@
 }
 
 - (void)bindViewModel {
-    [self.weatherHistoryViewModel.historyListSub subscribeNext:^(id x) {
-        
+    @weakify(self);
+    [self.weatherHistoryViewModel.historyListSub subscribeNext:^(NSArray * x) {
+        @strongify(self);
+        [self.dailyWeatherArr addObjectsFromArray:x];
     } error:^(NSError *error) {
-        
+        [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
     //执行删除操作
-    [self.weatherHistoryViewModel.deleteHistory.executionSignals.switchToLatest subscribeNext:^(id x) {
-        
+    [self.weatherHistoryViewModel.deleteHistory.executionSignals.switchToLatest subscribeNext:^(NSNumber * x) {
+        if (x.boolValue == YES) {
+            @strongify(self);
+            NSAssert(self.editIndexPath, @"editIndexPath must be set");
+            [self.tableView deleteRowsAtIndexPaths:@[self.editIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [SVProgressHUD showSuccessWithStatus:@"Delete success"];
+        }
     } error:^(NSError *error) {
-        
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"Delete Failed :%@",error.localizedDescription]];
     }];
 }
 
@@ -93,13 +102,27 @@
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             [cell configUIWithModel:item];
         }];
+        
+        //是否能编辑
+        _tDataSource.canEdit = YES;
+        @weakify(self);
+        _tDataSource.editCellBlock = ^(UITableViewCellEditingStyle editingStyle, NSIndexPath *indexPath) {
+            if (editingStyle == UITableViewCellEditingStyleDelete) {
+                @strongify(self);
+                if (indexPath.row < (self.dailyWeatherArr.count - 1)) {
+                    DailyWeather *weather = [self.dailyWeatherArr objectAtIndex:indexPath.row];
+                    self.editIndexPath = indexPath;
+                    [self.weatherHistoryViewModel.deleteHistory execute:weather.objectID];
+                }
+            }
+        };
     }
     return _tDataSource;
 }
 
 - (NSMutableArray *)dailyWeatherArr {
     if (!_dailyWeatherArr) {
-        _dailyWeatherArr = [NSMutableArray arrayWithArray:[kCoreDataManager fetchDailyWeather:kAppDelegate.persistentContainer.viewContext]];
+        _dailyWeatherArr = [NSMutableArray array];
     }
     return _dailyWeatherArr;
 }

@@ -7,6 +7,7 @@
 //
 
 typedef void(^ConfigTableViewCellBlock)(id cell,id item,id indexPath);
+typedef void(^EditCellBlock)(UITableViewCellEditingStyle editingStyle,NSIndexPath *indexPath);
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -18,5 +19,8 @@ typedef void(^ConfigTableViewCellBlock)(id cell,id item,id indexPath);
     ConfigTableViewCellBlock:(ConfigTableViewCellBlock)configBlock;
 
 - (id)itemAtIndexPath:(NSIndexPath *)indexPath;
+
+@property (nonatomic,assign) BOOL canEdit;
+@property (nonatomic,copy) EditCellBlock editCellBlock;
 
 @end

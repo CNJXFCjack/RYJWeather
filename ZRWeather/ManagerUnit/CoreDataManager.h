@@ -5,8 +5,8 @@
 //  Created by yijie on 2017/4/1.
 //  Copyright © 2017年 heinqi. All rights reserved.
 //
-
-typedef void(^RequestResultHandle)(BOOL,id,NSError *);
+//回调
+typedef void(^RequestResultHandle)(BOOL success,id data,NSError *error);
 
 #import <Foundation/Foundation.h>
 #import "LocationModel.h"
@@ -30,7 +30,7 @@ typedef void(^RequestResultHandle)(BOOL,id,NSError *);
               locName:(NSString *)locName;
 //拉取历史列表
 - (void)fetchDailyWeather:(NSManagedObjectContext *)context
-                         block:(RequestResultHandle)block;
+                    block:(RequestResultHandle)block;
 
 //删除
 - (void)deleteDailyWeather:(DailyWeather *)dailyWeather
