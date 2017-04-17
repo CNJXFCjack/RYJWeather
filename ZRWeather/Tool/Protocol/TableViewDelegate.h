@@ -12,6 +12,7 @@ typedef CGFloat(^ConfigFootHeight)(NSInteger);
 typedef void(^TabeViewDidSelectHandle)(UITableView *,NSIndexPath *);
 typedef void(^TableViewWillDisplayCellHandle)(UITableView *,UITableViewCell *,NSIndexPath *);
 typedef void(^TableViewDidScroll)(UIScrollView *scrollView);
+typedef void(^TableViewDidEndDraggingWillDecelerate)(UIScrollView *scrollView,BOOL decelerate);
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
@@ -24,5 +25,6 @@ typedef void(^TableViewDidScroll)(UIScrollView *scrollView);
 @property (nonatomic,copy) TabeViewDidSelectHandle didSelectHandle;
 @property (nonatomic,copy) TableViewWillDisplayCellHandle willDisplayCellHandle;
 @property (nonatomic,copy) TableViewDidScroll didScrollHandle;
+@property (nonatomic,copy) TableViewDidEndDraggingWillDecelerate didEndDragWillDeceHandle;
 
 @end

@@ -10,4 +10,8 @@
 
 @interface WeatherHistoryViewController : BaseViewController
 
+@property (nonatomic,copy) NSString *location;
+
+@property (nonatomic,strong) RACSubject *dismissSub;
+
 @end

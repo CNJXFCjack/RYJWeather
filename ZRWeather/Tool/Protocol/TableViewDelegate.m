@@ -69,4 +69,10 @@
     }
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (self.didEndDragWillDeceHandle) {
+        self.didEndDragWillDeceHandle(scrollView, decelerate);
+    }
+}
+
 @end

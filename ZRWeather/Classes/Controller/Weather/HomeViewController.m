@@ -16,9 +16,12 @@
 #import "NowWeatherView.h"
 #import "HomeWeatherTableViewCell.h"
 #import "WeatherHistoryViewController.h"
+#import "DismissAnimation.h"
+#import "PresentAnimation.h"
+#import "HomeView.h"
 
-@interface HomeViewController ()<UIScrollViewDelegate>{
-    CGFloat contentOffSetX;
+@interface HomeViewController ()<UIScrollViewDelegate,UIViewControllerTransitioningDelegate>{
+    CGFloat contentOffSetY;
 }
 
 @property (nonatomic,weak) UIScrollView *scrollView;
@@ -51,6 +54,8 @@
 }
 
 - (void)configSubiews{
+    self.view = [HomeView new];
+    
     [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view);
     }];
@@ -83,6 +88,7 @@
 
 - (void)bindViewModel{
     @weakify(self);
+    //获取当前天气
     [self.homeViewModel.nowWeatherSub subscribeNext:^(id x) {
         @strongify(self);
         if ([x isKindOfClass:[NSArray class]]) {
@@ -99,7 +105,7 @@
     } error:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
-    
+    //获取未来三天天气
     [self.homeViewModel.dailyWeatherSub subscribeNext:^(id x) {
         @strongify(self);
         if ([x isKindOfClass:[NSArray class]]) {
@@ -118,14 +124,18 @@
     //监听拖拽的长度
     [[self rac_signalForSelector:@selector(scrollViewDidScroll:) fromProtocol:@protocol(UIScrollViewDelegate)] subscribeNext:^(RACTuple * x) {
         @strongify(self);
-        self -> contentOffSetX = ((UIScrollView *)x.first).mj_offsetX;
+        self -> contentOffSetY = ((UIScrollView *)x.first).mj_offsetY;
     }];
     //当结束拖拽的时候  判断 拖拽的contentOffSetX
     [[self rac_signalForSelector:@selector(scrollViewDidEndDragging:willDecelerate:) fromProtocol:@protocol(UIScrollViewDelegate)] subscribeNext:^(RACTuple * xb) {
-        if (contentOffSetX > 60) {
+        if (contentOffSetY > 50) {
             @strongify(self);
             WeatherHistoryViewController *weatherHistoryVC = [[WeatherHistoryViewController alloc] init];
-            [self.navigationController pushViewController:weatherHistoryVC animated:YES];
+            [weatherHistoryVC.dismissSub subscribeNext:^(WeatherHistoryViewController * x) {
+                [x dismissViewControllerAnimated:YES completion:nil];
+            }];
+            weatherHistoryVC.location = @"苏州";
+            [self presentViewController:weatherHistoryVC animated:YES completion:nil];
         }
     }];
     
@@ -141,13 +151,22 @@
     return UIStatusBarStyleDefault;
 }
 
+#pragma mark --- UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    return [PresentAnimation new];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    return [DismissAnimation new];
+}
+
 #pragma mark --- Lazy load
 
 - (UIScrollView *)scrollView{
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc]init];
-        scrollView.pagingEnabled = YES;
-        scrollView.alwaysBounceHorizontal = YES;
+        scrollView.alwaysBounceVertical = YES;
         [self.view addSubview:(_scrollView = scrollView)];
     }
     return _scrollView;
@@ -177,7 +196,7 @@
 - (UILabel *)reminderLB {
     if (!_reminderLB) {
         UILabel *reminderLB = [[UILabel alloc]init];
-        reminderLB.text = @"Slider left to load history ~ ";
+        reminderLB.text = @"Pull on to load history ~ ";
         [self.containerView addSubview:(_reminderLB = reminderLB)];
     }
     return _reminderLB;
