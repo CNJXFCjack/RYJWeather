@@ -67,6 +67,7 @@
 - (void)rootController{
     HomeViewController *homeVC = [[HomeViewController alloc]init];
     BaseNavViewController *baseNav = [[BaseNavViewController alloc]initWithRootViewController:homeVC];
+    baseNav.navigationBarHidden = YES;
     [self.window setRootViewController:baseNav];
 }
 
