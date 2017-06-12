@@ -13,22 +13,20 @@
 #import "LocationModel.h"
 #import "DailyWeatherModel.h"
 #import "NowWeather.h"
-#import "NowWeatherView.h"
 #import "HomeWeatherTableViewCell.h"
 #import "WeatherHistoryViewController.h"
 #import "DismissAnimation.h"
 #import "PresentAnimation.h"
-#import "HomeView.h"
+#import "NowWeatherView.h"
 
 @interface HomeViewController ()<UIScrollViewDelegate,UIViewControllerTransitioningDelegate>{
     CGFloat contentOffSetY;
 }
 
-@property (nonatomic,weak) UIScrollView *scrollView;
-@property (nonatomic,weak) UIView *containerView;
-@property (nonatomic,weak) NowWeatherView *nowWeatherView;
-@property (nonatomic,weak) UITableView *tableView;
-@property (nonatomic,weak) UILabel *reminderLB;
+@property (nonatomic,weak) UIScrollView     *   scrollView;
+@property (nonatomic,weak) UIView           *   containerView;
+@property (nonatomic,weak) NowWeatherView   *   nowWeatherView;
+
 
 @property (nonatomic,strong) HomeViewModel *homeViewModel;
 @property (nonatomic,strong) LocationModel *locationModel;
@@ -44,46 +42,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"苏州";
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.homeViewModel getNowWeatherWithLocation:@"suzhou"];
     [self.homeViewModel getDailyWeatherWithLocation:@"suzhou"];
     
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     NSLog(@"%@",NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
 }
 
 - (void)configSubiews{
-    self.view = [HomeView new];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
     
-    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
     
-    [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.scrollView);
-        make.width.equalTo(self.scrollView);
-    }];
- 
-    [self.nowWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.containerView.mas_top);
-        make.left.equalTo(self.containerView.mas_left);
-        make.width.mas_equalTo(SCREEN.width);
-        make.height.mas_equalTo(120);
-        make.bottom.equalTo(self.containerView.mas_bottom).offset(- SCREEN.height + 64 + 120);
-    }];
-    
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.containerView);
-        make.top.equalTo(self.nowWeatherView.mas_bottom).offset(10);
-        make.bottom.equalTo(self.containerView.mas_bottom).offset(-40);
-    }];
-    
-    [self.reminderLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.containerView);
-        make.top.equalTo(self.tableView.mas_bottom).offset(5);
-        make.bottom.equalTo(self.containerView.mas_bottom).offset(-5);
-    }];
+
 }
 
 - (void)bindViewModel{
@@ -95,9 +68,9 @@
             NSDictionary *param = [[x firstObject] objectForKey:@"location"];
             LocationModel *locationModel = [LocationModel mj_objectWithKeyValues:param];
             self.locationModel = locationModel;
-            [kCoreDataManager insertLocation:kAppDelegate.persistentContainer.viewContext LocationModel:locationModel];
+            [kCoreDataManager insertLocation:kAppDelegate.persistentContainer.viewContext
+                               LocationModel:locationModel];
             
-            [self.nowWeatherView configDataWithNowWeather:[NowWeather mj_objectWithKeyValues:[[x firstObject] objectForKey:@"now"]]];
             
         }else if ([x isKindOfClass:[NSString class]]){
             [SVProgressHUD showErrorWithStatus:x];
@@ -105,6 +78,7 @@
     } error:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
+    
     //获取未来三天天气
     [self.homeViewModel.dailyWeatherSub subscribeNext:^(id x) {
         @strongify(self);
@@ -112,20 +86,25 @@
             NSArray *results = (NSArray *)x;
             if (results.count > 0) {
                 [self.dailyWeatherArr addObjectsFromArray: [DailyWeatherModel mj_objectArrayWithKeyValuesArray:[[results firstObject] objectForKey:@"daily"]]];
-                [kCoreDataManager insertDailyWeather:kAppDelegate.persistentContainer.viewContext WithResult:[self.dailyWeatherArr copy] locId:self.locationModel.locationId locName:self.locationModel.name];
+                [kCoreDataManager insertDailyWeather:kAppDelegate.persistentContainer.viewContext
+                                          WithResult:[self.dailyWeatherArr copy]
+                                               locId:self.locationModel.locationId
+                                             locName:self.locationModel.name];
             }
-            [self.tableView reloadData];
+
         }else if ([x isKindOfClass:[NSString class]]){
             [SVProgressHUD showErrorWithStatus:x];
         }
     } error:^(NSError *error) {
         [SVProgressHUD showErrorWithStatus:error.localizedDescription];
     }];
+    
     //监听拖拽的长度
     [[self rac_signalForSelector:@selector(scrollViewDidScroll:) fromProtocol:@protocol(UIScrollViewDelegate)] subscribeNext:^(RACTuple * x) {
         @strongify(self);
         self -> contentOffSetY = ((UIScrollView *)x.first).mj_offsetY;
     }];
+    
     //当结束拖拽的时候  判断 拖拽的contentOffSetX
     [[self rac_signalForSelector:@selector(scrollViewDidEndDragging:willDecelerate:) fromProtocol:@protocol(UIScrollViewDelegate)] subscribeNext:^(RACTuple * xb) {
         if (contentOffSetY > 50) {
@@ -134,6 +113,7 @@
             [weatherHistoryVC.dismissSub subscribeNext:^(WeatherHistoryViewController * x) {
                 [x dismissViewControllerAnimated:YES completion:nil];
             }];
+            weatherHistoryVC.transitioningDelegate = self;
             weatherHistoryVC.location = @"苏州";
             [self presentViewController:weatherHistoryVC animated:YES completion:nil];
         }
@@ -148,7 +128,7 @@
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleDefault;
+    return UIStatusBarStyleLightContent;
 }
 
 #pragma mark --- UIViewControllerTransitioningDelegate
@@ -180,64 +160,11 @@
     return _containerView;
 }
 
-- (UITableView *)tableView{
-    if (!_tableView) {
-        UITableView *tableView = [[UITableView alloc]init];
-        tableView.dataSource = self.tDataSource;
-        tableView.delegate = self.tDel;
-        [tableView registerClass:[HomeWeatherTableViewCell class] forCellReuseIdentifier:[HomeWeatherTableViewCell identifier]];
-        tableView.scrollEnabled = NO;
-        tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.containerView addSubview:(_tableView = tableView)];
-    }
-    return _tableView;
-}
-
-- (UILabel *)reminderLB {
-    if (!_reminderLB) {
-        UILabel *reminderLB = [[UILabel alloc]init];
-        reminderLB.text = @"Pull on to load history ~ ";
-        [self.containerView addSubview:(_reminderLB = reminderLB)];
-    }
-    return _reminderLB;
-}
-
 - (HomeViewModel *)homeViewModel{
     if (!_homeViewModel) {
         _homeViewModel = [[HomeViewModel alloc]init];
     }
     return _homeViewModel;
-}
-
-- (NowWeatherView *)nowWeatherView{
-    if (!_nowWeatherView) {
-        NowWeatherView *nowWeatherView = [[[NSBundle mainBundle] loadNibNamed:@"NoWeatherView" owner:self options:nil] firstObject];
-        [self.containerView addSubview:(_nowWeatherView = nowWeatherView)];
-    }
-    return _nowWeatherView;
-}
-
-- (TableViewDelegate *)tDel {
-    if (!_tDel) {
-        _tDel = [[TableViewDelegate alloc]initWithRowHeight:^CGFloat(NSIndexPath *indexPath) {
-            return 140;
-        } HeadHeight:^CGFloat(NSInteger section) {
-            return 0.001f;
-        } FootHeight:^CGFloat(NSInteger section) {
-            return 0.001f;
-        }];
-    }
-    return _tDel;
-}
-
-- (TableViewDataSource *)tDataSource {
-    if (!_tDataSource) {
-        _tDataSource = [[TableViewDataSource alloc]initWithData:self.dailyWeatherArr cellIdentifier:[HomeWeatherTableViewCell identifier] isGroup:NO ConfigTableViewCellBlock:^(HomeWeatherTableViewCell *  cell, DailyWeatherModel * item, NSIndexPath * indexPath) {
-            [cell configUIWithModel:item];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }];
-    }
-    return _tDataSource;
 }
 
 - (NSMutableArray *)dailyWeatherArr {

@@ -33,6 +33,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+- (void)dealloc {
+    NSLog(@"%@ destory",NSStringFromClass([self class]));
+}
 
 @end
