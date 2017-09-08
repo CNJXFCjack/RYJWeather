@@ -25,8 +25,6 @@
             self.msg = [response objectForKey:@"status"];
             NSLog(@"Error! Status Code:%@",[response objectForKey:@"status_code"]);
         }
-        
-        
     }
     return self;
 }

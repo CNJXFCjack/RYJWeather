@@ -22,10 +22,10 @@
 
 - (NSString *)transformDateToWeek:(NSString *)date
                        withFormat:(NSString *)format {
-    [kDateFormatManager setDateFormat:format];
-    NSDate *time = [kDateFormatManager dateFromString:date];
-    [kDateFormatManager setDateFormat:@"MMM d"];
-    return [kDateFormatManager stringFromDate:time];
+    [self setDateFormat:format];
+    NSDate *time = [self dateFromString:date];
+    [self setDateFormat:@"MMM d"];
+    return [self stringFromDate:time];
 }
 
 @end

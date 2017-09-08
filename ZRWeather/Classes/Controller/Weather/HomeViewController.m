@@ -24,7 +24,7 @@
 }
 
 @property (nonatomic,weak) UIScrollView     *   scrollView;
-@property (nonatomic,weak) UIView           *   containerView;
+@property (nonatomic,weak) UIView           *   container;
 @property (nonatomic,weak) NowWeatherView   *   nowWeatherView;
 
 
@@ -52,11 +52,22 @@
     NSLog(@"%@",NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES));
 }
 
-- (void)configSubiews{
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]];
-    
-    
 
+- (void)configSubiews{
+    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [self.container mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.scrollView);
+        make.width.equalTo(self.scrollView);
+    }];
+    
+    [self.nowWeatherView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.container);
+        make.height.mas_equalTo(SCREEN.height);
+    }];
+    
 }
 
 - (void)bindViewModel{
@@ -68,9 +79,13 @@
             NSDictionary *param = [[x firstObject] objectForKey:@"location"];
             LocationModel *locationModel = [LocationModel mj_objectWithKeyValues:param];
             self.locationModel = locationModel;
+            
+            NSDictionary *nowWeatherParam = [[x firstObject] objectForKey:@"now"];
+            NowWeather *nowWeather = [NowWeather mj_objectWithKeyValues:nowWeatherParam];
+            [self.nowWeatherView configureData:nowWeather location:@"苏州"];
+            
             [kCoreDataManager insertLocation:kAppDelegate.persistentContainer.viewContext
                                LocationModel:locationModel];
-            
             
         }else if ([x isKindOfClass:[NSString class]]){
             [SVProgressHUD showErrorWithStatus:x];
@@ -146,18 +161,29 @@
 - (UIScrollView *)scrollView{
     if (!_scrollView) {
         UIScrollView *scrollView = [[UIScrollView alloc]init];
+        scrollView.backgroundColor = [UIColor redColor];
         scrollView.alwaysBounceVertical = YES;
         [self.view addSubview:(_scrollView = scrollView)];
     }
     return _scrollView;
 }
 
-- (UIView *)containerView{
-    if (!_containerView) {
-        UIView *containerView = [[UIView alloc]init];
-        [self.scrollView addSubview:(_containerView = containerView)];
+- (UIView *)container{
+    if (!_container) {
+        UIView *container = [[UIView alloc]init];
+
+        [self.scrollView addSubview:(_container = container)];
     }
-    return _containerView;
+    return _container;
+}
+
+- (NowWeatherView *)nowWeatherView {
+    if (!_nowWeatherView) {
+        NowWeatherView *nowWeatherView = [[NowWeatherView alloc] init];
+        nowWeatherView.backgroundColor = [UIColor purpleColor];
+        [self.container addSubview:nowWeatherView];
+    }
+    return _nowWeatherView;
 }
 
 - (HomeViewModel *)homeViewModel{
