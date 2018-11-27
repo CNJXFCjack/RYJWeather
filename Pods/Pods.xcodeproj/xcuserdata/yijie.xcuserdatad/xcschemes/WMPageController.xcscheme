@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4540AE75259EA85F10F48E34A5392626'
-               BlueprintName = 'WMPageController'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'WMPageController.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "8F638A77D3283F725167081634231413"
+               BlueprintName = "WMPageController"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "WMPageController.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

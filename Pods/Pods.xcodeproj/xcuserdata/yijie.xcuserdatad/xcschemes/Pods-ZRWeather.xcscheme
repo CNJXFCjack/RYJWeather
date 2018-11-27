@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "75B7E8C48ED916F1EA3ACC473685BC1D"
+               BlueprintIdentifier = "EA07E9CA8EC73CAD70726CC16DCE465E"
                BuildableName = "Pods_ZRWeather.framework"
                BlueprintName = "Pods-ZRWeather"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "75B7E8C48ED916F1EA3ACC473685BC1D"
+            BlueprintIdentifier = "EA07E9CA8EC73CAD70726CC16DCE465E"
             BuildableName = "Pods_ZRWeather.framework"
             BlueprintName = "Pods-ZRWeather"
             ReferencedContainer = "container:Pods.xcodeproj">
